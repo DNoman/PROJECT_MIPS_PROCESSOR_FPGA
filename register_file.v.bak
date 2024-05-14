@@ -1,0 +1,21 @@
+module register_file(ReadAddress1,ReadAddress2,WriteAddress,WriteData,ReadData1,ReadData2,ReadWriteEn,clk);
+input ReadWriteEn,clk;
+input [4:0] ReadAddress1,ReadAddress2,WriteAddress;
+input [31:0]WriteData;
+output [31:0]ReadData1,ReadData2;
+reg [31:0] registers [31:0];
+initial
+begin
+registers[5'b10001] = 0;
+registers[5'b10010] = 15;
+registers[5'b10011] = 2 ;
+end
+
+always@(posedge clk)
+begin
+	if(ReadWriteEn)
+		registers[WriteAddress] <= WriteData ;
+end
+assign ReadData1 = (ReadWriteEn) ? registers[ReadAddress1] : 32'bz;
+assign ReadData2 = (ReadWriteEn) ? registers[ReadAddress2] : 32'bz;
+endmodule

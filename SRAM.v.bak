@@ -1,0 +1,25 @@
+module SRAM(clk,Address,WriteData,ReadData,WriteEn,ReadEn);
+input WriteEn,ReadEn,clk;
+input [31:0] WriteData;
+input [31:0] Address;
+output reg [31:0] ReadData;
+reg [31:0] array [31:0];
+wire [4:0] Address1 = Address[4:0];
+initial
+begin
+array[5'b01111] = 6;
+end
+
+always@(posedge clk)
+begin
+	if(WriteEn && !ReadEn) begin
+	array [Address1] <= WriteData;
+	end
+	else if(ReadEn && !WriteEn) begin
+	ReadData <= array[Address1];
+	end
+	else begin
+	ReadData <= 32'bz;
+	end
+end
+endmodule

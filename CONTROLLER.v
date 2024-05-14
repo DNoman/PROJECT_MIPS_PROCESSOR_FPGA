@@ -1,0 +1,98 @@
+module CONTROLLER(I,Regdst,RegW,ALUSrc,MemW,MemR,MemtoReg,ALUop,reset);
+input [5:0] I;
+output reg Regdst, RegW, ALUSrc,MemW,MemR,MemtoReg;
+output reg [1:0] ALUop;
+input reset;
+
+always@(*)
+begin
+if(reset) begin
+	ALUop = 0;
+	Regdst = 0;
+	MemR = 0;
+	MemW = 0;
+	MemtoReg = 0;
+	ALUSrc =0;
+	RegW = 0;
+end else 
+begin
+case(I[5:0])
+	//add 1
+	6'b000001:
+	begin
+	ALUop = 2'b00;
+	Regdst = 1;
+	RegW = 1;
+	MemR = 0;
+	MemW = 0;
+	MemtoReg =0;
+	ALUSrc = 0;
+	end
+	//sub 3 
+	6'b000011:
+	begin
+	ALUop = 2'b01;
+	Regdst = 1;
+	RegW = 1;
+	MemR = 0;
+	MemW = 0;
+	MemtoReg =0;
+	ALUSrc = 0;
+	end
+	//and 5 
+	6'b000101:
+	begin
+	ALUop = 2'b10;
+	Regdst = 1;
+	RegW = 1;
+	MemR = 0;
+	MemW = 0;
+	MemtoReg =0;
+	ALUSrc = 0;
+	end
+	//or 7
+	6'b000111:
+	begin
+	ALUop = 2'b11;
+	Regdst = 1;
+	RegW = 1;
+	MemR = 0;
+	MemW = 0;
+	MemtoReg =0;
+	ALUSrc = 0;
+	end
+	//lw 2
+	6'b000010:
+	begin
+	ALUop = 2'b00;
+	Regdst = 0;
+	RegW = 1;
+	MemR = 1;
+	MemW = 0;
+	MemtoReg =1;
+	ALUSrc = 1;
+	end
+	//sw 4
+	6'b000100:
+	begin
+	ALUop = 2'b00;
+	Regdst = 0;
+	RegW = 1;
+	MemR = 0;
+	MemW = 1;
+	MemtoReg =1;
+	ALUSrc = 1;
+	end
+	default begin
+	ALUop = 0;
+	Regdst = 0;
+	RegW = 0;
+	MemR = 0;
+	MemW = 0;
+	MemtoReg =0;
+	ALUSrc = 0;
+	end
+endcase
+end
+end
+endmodule

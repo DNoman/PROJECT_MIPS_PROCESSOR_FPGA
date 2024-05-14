@@ -1,0 +1,45 @@
+`timescale 1ns/1ns
+module MIPS_tb;
+
+reg clk, reset;
+reg [31:0] In;
+wire [31:0] Out, alu_result, reg1, reg2, sram15;
+wire [31:26] Opcode;
+
+MIPS uut(
+  .clk(clk),
+  .reset(reset),
+  .In(In),
+  .Out(Out),
+  .Opcode(Opcode),
+  .alu_result(alu_result),
+  .reg1(reg1),
+  .reg2(reg2),
+  .sram15(sram15)
+);
+
+initial begin
+  // Initialize inputs
+  clk = 0;
+  reset = 1;
+  In = 32'h00000000;
+
+  // Apply reset
+  #10 reset = 0;
+
+  // Test Case 1
+  In = 32'h01234567; // Set input data
+  #20; // Allow some time for processing
+  // Add more test cases as needed
+
+  // Add more test cases as needed
+
+  #100 $finish; // End simulation after some time
+end
+
+// Clock generation
+always begin
+  #5 clk = ~clk;
+end
+
+endmodule

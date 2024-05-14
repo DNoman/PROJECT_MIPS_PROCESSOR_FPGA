@@ -1,0 +1,6 @@
+module MIPS(clk,reset,In,Out);
+input clk,reset;
+input [31:0]In;
+output [31:0]Out;
+
+wire Regdst, RegW, ALUSrc,MemW,MemR,MemtoReg;
